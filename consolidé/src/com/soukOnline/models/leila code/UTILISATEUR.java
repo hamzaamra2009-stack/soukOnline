@@ -6,10 +6,9 @@ public class Utilisateur {
     private String motDePasse;
     private String role;
 
-    // Constructeur vide
     public Utilisateur() {}
 
-    // Constructeur complet
+
     public Utilisateur(int id, String email, String motDePasse, String role) {
         this.id = id;
         this.email = email;
@@ -17,7 +16,7 @@ public class Utilisateur {
         this.role = role;
     }
 
-    // Méthodes métiers (Logique simplifiée)
+
     public boolean seConnecter(String email, String mdp) {
         System.out.println("Tentative de connexion pour : " + email);
         // Logique simplifiée : retourne vrai si les champs ne sont pas vides
@@ -29,7 +28,7 @@ public class Utilisateur {
         System.out.println("Profil mis à jour : " + nouvelEmail);
     }
 
-    // Getters et Setters
+    
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
