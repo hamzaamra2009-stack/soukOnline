@@ -2,37 +2,22 @@ package com.soukOnline.models;
 
 public class Livraison {
     private String codeSuivi;
-    private String destination;
-    private String statut; // EN_PREPARATION, EXPEDIE, LIVRE, RETOUR
+    private String statut; 
 
-    // Constructeur vide
-    public Livraison() {}
-
-    // Constructeur complet
-    public Livraison(String codeSuivi, String destination) {
+    public Livraison(String codeSuivi) {
         this.codeSuivi = codeSuivi;
-        this.destination = destination;
-        this.statut = "EN_PREPARATION";
+        this.statut = "EN_ATTENTE_PAIEMENT";
     }
 
-    // Méthode métier : Mise à jour du statut (Centralisation logistique)
-    public void mettreAJourStatutLivraison(String nouveauStatut) {
-        this.statut = nouveauStatut;
-        System.out.println("--- Hub Logistique SoukOnline ---");
-        System.out.println("Mise à jour Colis " + codeSuivi + " : Nouveau statut -> " + statut);
-
-        if (statut.equals("LIVRE")) {
-            System.out.println("Notification : Le client a reçu son colis à " + destination);
+    // LOGIQUE RÉELLE : Déclenchement sur condition
+    public void declencherExpedition(Paiement p) {
+        // INTERACTION : Vérifie le statut chez Hamza
+        if (p.getStatut().equals("VALIDE")) {
+            this.statut = "EXPEDIE";
+            System.out.println("--- Logistique SoukOnline ---");
+            System.out.println("Paiement confirmé. Colis " + codeSuivi + " envoyé au transporteur.");
+        } else {
+            System.out.println("Alerte : Livraison bloquée (Paiement non reçu).");
         }
     }
-
-    public void afficherDetailsLivraison() {
-        System.out.println("Suivi : " + codeSuivi + " | Destination : " + destination + " | État : " + statut);
-    }
-
-    // Getters et Setters
-    public String getCodeSuivi() { return codeSuivi; }
-    public void setCodeSuivi(String codeSuivi) { this.codeSuivi = codeSuivi; }
-
-    public String getStatut() { return statut; }
 }

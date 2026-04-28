@@ -1,29 +1,20 @@
 package com.soukOnline.models;
 
 public class Statistique {
-    private String typeStat; // ex: "Ventes", "Taux de retour", "Panier Moyen"
+    private String typeStat;
     private double valeur;
-    private String periode; // ex: "Avril 2024"
 
-    // Constructeur vide
-    public Statistique() {}
-
-    // Constructeur complet
-    public Statistique(String typeStat, double valeur, String periode) {
+    public Statistique(String typeStat, double valeur) {
         this.typeStat = typeStat;
         this.valeur = valeur;
-        this.periode = periode;
     }
 
-    // Méthode métier : Afficher détails
-    public void afficherResume() {
-        System.out.println("Statistique [" + typeStat + "] pour " + periode + " : " + valeur);
+    // LOGIQUE RÉELLE : Analyse de performance
+    public void analyserCroissance(double valeurPrecedente) {
+        double evolution = ((this.valeur - valeurPrecedente) / valeurPrecedente) * 100;
+        
+        System.out.println("--- Analyse Statistique ---");
+        System.out.printf("Indicateur [%s] : %.2f DT\n", typeStat, valeur); //
+        System.out.printf("Évolution : %+.1f%% par rapport au mois dernier.\n", evolution);
     }
-
-    // Getters et Setters
-    public String getTypeStat() { return typeStat; }
-    public void setTypeStat(String typeStat) { this.typeStat = typeStat; }
-
-    public double getValeur() { return valeur; }
-    public void setValeur(double valeur) { this.valeur = valeur; }
 }

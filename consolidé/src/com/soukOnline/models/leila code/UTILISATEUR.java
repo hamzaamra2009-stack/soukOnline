@@ -6,10 +6,6 @@ public class Utilisateur {
     private String motDePasse;
     private String role;
 
-    // Constructeur vide
-    public Utilisateur() {}
-
-    // Constructeur complet
     public Utilisateur(int id, String email, String motDePasse, String role) {
         this.id = id;
         this.email = email;
@@ -17,33 +13,23 @@ public class Utilisateur {
         this.role = role;
     }
 
-    // Méthodes métiers (Logique simplifiée)
-    public boolean seConnecter(String email, String mdp) {
-        System.out.println("Tentative de connexion pour : " + email);
-        // Logique simplifiée : retourne vrai si les champs ne sont pas vides
-        return !email.isEmpty() && !mdp.isEmpty();
-    }
+    public boolean seConnecter(String emailSaisi, String mdpSaisi) {
+        System.out.println("--- Authentification SoukOnline ---");
+        
+        if (!emailSaisi.contains("@")) {
+            System.out.println("Erreur : Format d'email invalide.");
+            return false;
+        }
 
-    public void modifierProfil(String nouvelEmail) {
-        this.email = nouvelEmail;
-        System.out.println("Profil mis à jour : " + nouvelEmail);
+        if (this.email.equals(emailSaisi) && this.motDePasse.equals(mdpSaisi)) {
+            System.out.println("Bienvenue " + this.email + " ! Accès autorisé en tant que " + this.role + ".");
+            return true;
+        } else {
+            System.out.println("Échec : Email ou mot de passe incorrect.");
+            return false;
+        }
     }
-
-    // Getters et Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getMotDePasse() { return motDePasse; }
-    public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
-
     public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
-
-    @Override
-    public String toString() {
-        return "Utilisateur [email=" + email + ", role=" + role + "]";
-    }
 }

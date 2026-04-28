@@ -1,35 +1,19 @@
 package com.soukOnline.models;
 
 public class Client extends Utilisateur {
-    private String nomBoutique;
-    private String telephone;
+    private String adresseLivraison;
+    private int nombreCommandes;
 
-    // Constructeur vide
-    public Client() {
-        super();
+    public Client(int id, String email, String motDePasse, String role, String adresseLivraison) {
+        super(id, email, motDePasse, role);
+        this.adresseLivraison = adresseLivraison;
+        this.nombreCommandes = 0;
     }
 
-    // Constructeur complet
-    public Client(int id, String email, String motDePasse, String nomBoutique, String telephone) {
-        super(id, email, motDePasse, "E-COMMERCANT");
-        this.nomBoutique = nomBoutique;
-        this.telephone = telephone;
+    public void afficherClient() {
+        System.out.println("Client : " + getEmail() + " | Adresse : " + adresseLivraison);
     }
 
-    // Méthode métier
-    public void sinscrire() {
-        System.out.println("Inscription de la boutique " + nomBoutique + " en cours...");
-        System.out.println("Un email de confirmation a été envoyé à " + getEmail());
-    }
-
-    public void afficherDetails() {
-        System.out.println("Boutique : " + nomBoutique + " | Tel : " + telephone);
-    }
-
-    // Getters et Setters
-    public String getNomBoutique() { return nomBoutique; }
-    public void setNomBoutique(String nomBoutique) { this.nomBoutique = nomBoutique; }
-
-    public String getTelephone() { return telephone; }
-    public void setTelephone(String telephone) { this.telephone = telephone; }
+    public String getAdresseLivraison() { return adresseLivraison; }
+    public void setAdresseLivraison(String adresseLivraison) { this.adresseLivraison = adresseLivraison; }
 }
