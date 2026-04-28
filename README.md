@@ -34,6 +34,8 @@ Les e-commerçants perdent un temps précieux et une charge mentale importante �
 * **Figma / Uizard** - Design de l'interface centralisée.
 * **PlantUML** - Modélisation des diagrammes de classes et séquences.
 * **Méthode Scrum** - Développement itératif (2 Sprints).
+## lien figma: 
+* ** https://www.figma.com/make/3VR19IdR4vvHwBak3G3rWv/E-commerce-Management-Platform?fullscreen=1&t=j8wgCICVho7Jou6E-1&preview-route=%2Fproducts%2Fnew
 
 ## Structure du projet (Modèles Java)
 ```text
