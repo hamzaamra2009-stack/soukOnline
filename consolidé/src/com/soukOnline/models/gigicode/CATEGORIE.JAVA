@@ -7,29 +7,28 @@ public class Categorie {
     private int idCategorie;
     private String nom;
     private String description;
+    private List<Produit> listeProduits; // Logique réelle : On stocke les produits
 
-    // Constructeur vide
-    public Categorie() {}
-
-    // Constructeur complet
     public Categorie(int idCategorie, String nom, String description) {
         this.idCategorie = idCategorie;
         this.nom = nom;
         this.description = description;
+        this.listeProduits = new ArrayList<>();
     }
 
-    // Méthode métier
-    public void afficherInfosCategorie() {
-        System.out.println("Catégorie : " + nom + " - " + description);
+    // LOGIQUE RÉELLE : Gestion du catalogue
+    public void ajouterProduitALaCategorie(Produit p) {
+        this.listeProduits.add(p);
+        System.out.println("Le produit '" + p.getNom() + "' est désormais classé dans : " + this.nom);
+    }
+
+    public void listerProduits() {
+        System.out.println("--- Produits dans " + nom + " ---");
+        for (Produit p : listeProduits) {
+            System.out.println("- " + p.getNom() + " (" + p.getPrixVente() + " DT)");
+        }
     }
 
     // Getters et Setters
-    public int getIdCategorie() { return idCategorie; }
-    public void setIdCategorie(int idCategorie) { this.idCategorie = idCategorie; }
-
     public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
-
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
 }
