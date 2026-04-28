@@ -1,51 +1,58 @@
-package consolidé.src.com.soukOnline.models;
+import com.soukOnline.models.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== SoukOnline - Démonstration Sprint 1 ===");
-        System.out.println();
+        // 1. INITIALISATION DU SYSTÈME (AGL & Sprint 1)
+        System.out.println("========== BIENVENUE SUR SOUKONLINE (Sprint 2) ==========\n");
 
-        // 1. Test Authentification (Leila)
-        System.out.println("--- Authentification (Leila) ---");
-        Client ecommercant = new Client(1, "contact@boutique.tn", "password123", "Tunis Tech", "55123456");
-        ecommercant.sinscrire();
-        ecommercant.seConnecter("contact@boutique.tn", "password123");
-        System.out.println();
+        // Membre Leila : Création d'un client
+        Client client = new Client(1, "hamza@email.tn", "password123", "Tunis");
 
-        // 2. Test Catalogue & Stock (Ghofrane)
-        System.out.println("--- Gestion Catalogue (Ghofrane) ---");
-        Produit p1 = new Produit(101, "Smartphone X", 1200.0, 5, 2);
-        p1.ajouterProduit();
-        p1.verifierStock();
-        System.out.println();
+        // Membre Ghofrane : Création du catalogue et des produits
+        Produit p1 = new Produit(101, "Smartphone Samsung", 1200.0, 5, 2);
+        Produit p2 = new Produit(102, "Ecouteurs Bluetooth", 150.0, 10, 3);
+        Categorie catElectronique = new Categorie(1, "Electronique", "Gadgets et mobiles");
+        catElectronique.ajouterProduitALaCategorie(p1);
+        catElectronique.ajouterProduitALaCategorie(p2);
 
-        // 3. Test Panier & Livraison (Lina)
-        System.out.println("--- Panier & Logistique (Lina) ---");
-        Panier monPanier = new Panier(500);
-        monPanier.ajouterAuPanier(p1.getNom(), p1.getPrixVente());
+        // Membre Hamza : Initialisation de la finance
+        Finance finance = new Finance(0, 50.0, 20.0, 500.0); // revenus, pub, liv, achat
         
-        Livraison maLivraison = new Livraison("TRK-9988", "Sousse");
-        maLivraison.mettreAJourStatutLivraison("EXPEDIE");
-        System.out.println();
+        // Membre Abdelkader : Dashboard
+        Dashboard adminDash = new Dashboard("Hamza Admin");
 
-        // 4. Test Paiement & Finance (Hamza)
-        System.out.println("--- Paiement & Finance (Hamza) ---");
-        Paiement transaction = new Paiement(9001, 1200.0, "EDinar");
-        transaction.simulerPaiement();
-        transaction.genererRecu();
-        
-        // Simulation du profit : (Revenus, Pub, Livraison, Achat)
-        Finance maCompta = new Finance(1200.0, 50.0, 10.0, 800.0);
-        maCompta.afficherAnalyse();
-        System.out.println();
+        // 2. SCÉNARIO D'UTILISATION (Logique Réelle & Interactions)
 
-        // 5. Test Dashboard (Abdelkader)
-        System.out.println("--- Dashboard & Stats (Abdelkader) ---");
-        Dashboard adminDash = new Dashboard(1, "Leila (Tunis Tech)");
-        adminDash.afficherEvolutionVentes();
-        adminDash.genererRapportJournalier();
+        // Étape A : Authentification (Leila)
+        if (client.seConnecter("hamza@email.tn", "password123")) {
+            
+            // Étape B : Gestion du Panier (Lina)
+            Panier panier = new Panier(501);
+            panier.ajouterProduit(p1, 1); // Interaction Lina -> Ghofrane (vérifie stock)
+            panier.ajouterProduit(p2, 2);
 
-        System.out.println();
-        System.out.println("=== Fin de la démonstration : Prototype validé ===");
+            double totalAchat = panier.getTotalPrix();
+            double fraisPort = panier.calculerFraisPort("Tunis");
+            double montantAFacturer = totalAchat + fraisPort;
+
+            // Étape C : Paiement et Mise à jour des stocks (Hamza -> Ghofrane)
+            Paiement paiement = new Paiement(999, "EDinar");
+            // Interaction Hamza -> Ghofrane : traiterCommande déduit le stock si payé
+            boolean succesPaiement = paiement.traiterCommande(p1, 1); 
+
+            if (succesPaiement) {
+                // Étape D : Fidélité et Livraison (Leila & Lina)
+                client.enregistrerAchat(montantAFacturer); // Interaction Leila
+                
+                Livraison liv = new Livraison("TRK-789");
+                liv.declencherExpedition(paiement); // Interaction Lina -> Hamza (vérifie statut)
+                
+                // Étape E : Mise à jour Finance et Dashboard (Hamza & Abdelkader)
+                finance.setRevenusTotaux(montantAFacturer);
+                adminDash.genererRapportDynamique(finance); // Interaction Abdelkader -> Hamza
+            }
+        }
+
+        System.out.println("\n========== FIN DE LA SIMULATION SOUKONLINE ==========");
     }
 }
